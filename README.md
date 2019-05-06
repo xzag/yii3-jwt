@@ -1,18 +1,18 @@
-# yii2-jwt
+# yii3-jwt
 
-JWT implementation for Yii2 Authorization process
+JWT implementation for Yii3
 
 For details see [JWT official website](https://jwt.io/introduction/).
 
 ## Installation
 
-To install (only master is available now) run:
+To install run:
 ```
-    composer require "damirka/yii2-jwt:v0.2.1"
+    composer require "xzag/yii3-jwt: ~3.0"
 ```
 Or add this line to *require* section of composer.json:
 ```
-    "damirka/yii2-jwt": "v0.2.1"
+    "xzag/yii3-jwt": "~3.0"
 ```
 
 ## Usage
@@ -29,15 +29,16 @@ In controller:
 
 // ...
 
-use yii\filters\auth\HttpBearerAuth;
+use yii\web\filters\auth\HttpBearerAuth;
+use Yiisoft\Yii\Rest\ActiveController;
 
-class BearerAuthController extends \yii\rest\ActiveController
+class BearerAuthController extends ActiveController
 {
     public function behaviors()
     {
         return array_merge(parent::behaviors(), [
             'bearerAuth' => [
-                'class' => HttpBearerAuth::className()
+                'class' => HttpBearerAuth::class
             ]
         ]);
     }
@@ -51,13 +52,13 @@ In User model:
 
 // ...
 
-use yii\db\ActiveRecord;
-use yii\web\IdentityInterface
+use yii\activerecord\ActiveRecord;
+use yii\web\IdentityInterface;
 
 class User extends ActiveRecord implements IdentityInterface
 {
     // Use the trait in your User model
-    use \damirka\JWT\UserTrait;
+    use xzag\JWT\UserTrait;
 
     // Override this method
     protected static function getSecretKey()

@@ -1,26 +1,30 @@
 <?php
 
-namespace damirka\JWT;
+namespace xzag\JWT;
 
 use Firebase\JWT\JWT;
 
-use Yii;
+use yii\helpers\Yii;
+use yii\web\IdentityInterface;
 use yii\web\Request as WebRequest;
+use Yiisoft\ActiveRecord\ActiveRecord;
 
 /**
  * Trait to handle JWT-authorization process. Should be attached to User model.
  * If there are many applications using user model in different ways - best way
  * is to use this trait only in the JWT related part.
+ *
+ * @mixin ActiveRecord
+ * @mixin IdentityInterface
  */
 trait UserTrait
 {
-    
     /**
      * Store JWT token header items.
      * @var array
      */
     protected static $decodedToken;
-    
+
     /**
      * Getter for secret key that's used for generation of JWT
      * @return string secret key used to generate JWT
@@ -42,9 +46,8 @@ trait UserTrait
     /**
      * Logins user by given JWT encoded string. If string is correctly decoded
      * - array (token) must contain 'jti' param - the id of existing user
-     * @param  string $accessToken access token to decode
+     * @param  string $token access token to decode
      * @return mixed|null          User model or null if there's no user
-     * @throws \yii\web\ForbiddenHttpException if anything went wrong
      */
     public static function findIdentityByAccessToken($token, $type = null)
     {
@@ -112,12 +115,12 @@ trait UserTrait
         // Collect all the data
         $secret      = static::getSecretKey();
         $currentTime = time();
-        $request     = Yii::$app->request;
+        $request     = Yii::getApp()->getRequest();
         $hostInfo    = '';
 
         // There is also a \yii\console\Request that doesn't have this property
         if ($request instanceof WebRequest) {
-            $hostInfo = $request->hostInfo;
+            $hostInfo = $request->getHostInfo();
         }
 
         // Merge token with presets not to miss any params in custom
