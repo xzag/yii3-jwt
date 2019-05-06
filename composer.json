@@ -1,23 +1,41 @@
 {
-    "name": "damirka/yii2-jwt",
-    "keywords": ["yii", "jwt"],
+    "name": "xzag/yii3-jwt",
+    "keywords": ["yii3", "jwt"],
     "description": "Trait for easier JWT integration",
-    "homepage": "https://github.com/damirka/yii2-jwt",
+    "homepage": "https://github.com/xzag/yii3-jwt",
     "minimum-stability": "stable",
-    "type": "yii2-extension",
+    "type": "yii3-extension",
     "license": "MIT",
     "authors": [
         {
             "name": "Damir Shamanaev",
             "email": "damirka.ru@gmail.com",
             "homepage": "https://github.com/damirka"
+        },
+        {
+            "name": "Aleksandr Goryachkin",
+            "email": "alexgoryachkin@gmail.com",
+            "homepage": "https://github.com/xzag"
         }
     ],
     "autoload": {
-        "psr-4": {"damirka\\JWT\\": "src/"}
+        "psr-4": {"xzag\\JWT\\": "src/"}
     },
     "require": {
-        "yiisoft/yii2": "~2.0.0",
-        "firebase/php-jwt": "~3.0.0"
+        "php": "^7.2",
+        "firebase/php-jwt": "~5.0"
+    },
+    "require-dev": {
+        "yiisoft/yii-web": "^3.0@dev",
+        "yiisoft/view": "^3.0@dev",
+        "yiisoft/yii-core": "^3.0@dev",
+        "yiisoft/arrays": "^3.0@dev",
+        "yiisoft/strings": "^3.0@dev",
+        "yiisoft/log": "^3.0@dev",
+        "yiisoft/di": "^3.0@dev",
+        "yiisoft/cache": "^3.0@dev",
+        "yiisoft/inflector": "^3.0@dev",
+        "yiisoft/db": "^3.0@dev",
+        "yiisoft/active-record": "^3.0@dev"
     }
 }
